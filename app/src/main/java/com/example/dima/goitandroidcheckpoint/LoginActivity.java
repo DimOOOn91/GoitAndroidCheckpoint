@@ -19,8 +19,9 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String IS_USER_SIGN_IN = "is sign in";
+    public static final String CURRENT_USER = "current user";
 
-    private List<User> mUsers;
+    private static List<User> mUsers;
 
     private EditText mEmail;
     private EditText mPassword;
@@ -128,9 +129,13 @@ public class LoginActivity extends AppCompatActivity {
             mEmail.setError(null);
             mPassword.setError(null);
         }
-        mSharedPreferences.edit().putBoolean(IS_USER_SIGN_IN, true).apply();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(IS_USER_SIGN_IN, true);
+        editor.putString(CURRENT_USER, email);
+        editor.apply();
         mPassword.setText("");
         enterTheProgram();
+
         return;
 
     }

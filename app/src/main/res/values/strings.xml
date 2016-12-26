@@ -14,4 +14,7 @@
     <string name="wrong_email">Wrong e-mail</string>
     <string name="duplicate_email">User with such email is already exists</string>
     <string name="wrong_email_or_password">Email or password is wrong</string>
+    <string name="please_set_your_bit">Please set your bit</string>
+    <string name="set">Set</string>
+    <string name="begin_race">Begin race</string>
 </resources>
