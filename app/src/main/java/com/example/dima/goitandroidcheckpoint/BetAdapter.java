@@ -52,7 +52,7 @@ public class BetAdapter extends BaseAdapter {
 
         Bet bet = mList.get(i);
 
-        number.setText(String.valueOf(mList.indexOf(bet)));
+        number.setText(String.valueOf(mList.indexOf(bet) + 1));
         user.setText(bet.getUser());
         sum.setText(String.valueOf(bet.getSum()));
         horse.setText(bet.getHorseNumber().name());
