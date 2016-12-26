@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">GoitAndroidCheckpoint</string>
+    <string name="log_out"><u>Log out</u></string>
+    <string name="please_log_in">Please enter your email and password:</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="create_account">Create account</string>
+    <string name="i_don_t_have_account"><u>I don\'t have account</u></string>
+    <string name="required">Required!</string>
+    <string name="too_short">Too short, should be not less than 6 symbols</string>
+    <string name="cannot_be_created">This account cannot be created</string>
+    <string name="wrong_data">Email or password is wrong</string>
+    <string name="wrong_email">Wrong e-mail</string>
+    <string name="duplicate_email">User with such email is already exists</string>
+    <string name="wrong_email_or_password">Email or password is wrong</string>
 </resources>

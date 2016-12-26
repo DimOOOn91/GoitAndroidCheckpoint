@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
@@ -9,7 +9,69 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.dima.goitandroidcheckpoint.LoginActivity"
-    android:orientation="vertical">
+    tools:context="com.example.dima.goitandroidcheckpoint.LoginActivity">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/maintext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="@string/please_log_in"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/loginedit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/maintext"
+        android:layout_marginTop="30dp"
+        android:hint="@string/e_mail"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/loginedit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginedit_email"
+        android:layout_marginTop="5dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"/>
+
+    <RelativeLayout
+        android:id="@+id/loginframe_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginedit_password"
+        android:layout_marginTop="15dp"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/loginbutton_log_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_in"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/logintext_dont_have_account"
+            android:textColor="#3f51b5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginbutton_log_in"
+            android:gravity="center_horizontal"
+            android:text="@string/i_don_t_have_account"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/loginbutton_create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginedit_password"
+        android:layout_marginTop="15dp"
+        android:text="@string/create_account"
+        android:textSize="15sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>
