@@ -1,7 +1,11 @@
 package com.example.dima.goitandroidcheckpoint;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 /**
  * Вариант№2.
@@ -17,9 +21,28 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String IS_USER_SIGN_IN = "is sign in";
+
+    SharedPreferences mSharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 1, 0, getString(R.string.log_out));
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mSharedPreferences.edit().putBoolean(IS_USER_SIGN_IN, false).apply();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 }
