@@ -1,7 +1,6 @@
 package com.example.dima.goitandroidcheckpoint;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,6 +16,7 @@ import android.widget.Spinner;
 import com.example.dima.goitandroidcheckpoint.entity.Bet;
 import com.example.dima.goitandroidcheckpoint.entity.Horse;
 import com.example.dima.goitandroidcheckpoint.entity.Winner;
+import com.example.dima.goitandroidcheckpoint.util.SharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +35,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String IS_USER_SIGN_IN = "is sign in";
-    public static final String CURRENT_USER = "current user";
-
     private List<String> mPositions;
     private List<Bet> mBetList;
     private List<Winner> mWinners;
 
-    SharedPreferences mSharedPreferences;
+    private SharedPref mSharedPreferences;
 
     private LinearLayout mBatFrame;
     private Spinner mHorse;
@@ -58,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         generateCollections();
-        mSharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
+        mSharedPreferences = new SharedPref(this);
+
         mBetListView = (ListView) findViewById(R.id.mainBet_listView);
         mBetAdapter = new BetAdapter(this, mBetList);
         mBetListView.setAdapter(mBetAdapter);
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mainBet_setBet:
-                String user = mSharedPreferences.getString(CURRENT_USER, "");
+                String user = mSharedPreferences.getCurrentUser();
                 Horse horse = (Horse) mHorse.getSelectedItem();
                 String horsePosition = mHorsePosition.getSelectedItem().toString();
                 int sum = Integer.valueOf(mBetSum.getText().toString());
@@ -124,10 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putBoolean(IS_USER_SIGN_IN, false);
-        editor.putString(CURRENT_USER, "");
-        editor.apply();
+        mSharedPreferences.signOut();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         return super.onOptionsItemSelected(item);
     }
