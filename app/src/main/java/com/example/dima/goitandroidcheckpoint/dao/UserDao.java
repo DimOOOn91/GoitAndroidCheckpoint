@@ -1,14 +1,11 @@
 package com.example.dima.goitandroidcheckpoint.dao;
 
-import com.example.dima.goitandroidcheckpoint.entity.Bet;
 import com.example.dima.goitandroidcheckpoint.entity.User;
 
-import java.util.List;
+public interface UserDao {
 
-public interface UserDao extends AbstractDao<User> {
+    User getUserByEmail(String email);
 
-    List<Bet> getAllBets(User user);
-    List<User> getWinners();
-    int getThePrize(User user, Bet bet);
+    boolean isPresentUser(String email);
 
 }

@@ -1,25 +1,17 @@
 package com.example.dima.goitandroidcheckpoint.dao;
 
 import com.example.dima.goitandroidcheckpoint.entity.Bet;
+import com.example.dima.goitandroidcheckpoint.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BetDaoImpl implements BetDao {
-
-    private static BetDaoImpl ourInstance = null;
+public class BetDaoImpl implements BetDao, AbstractDao<Bet>  {
 
     private List<Bet> mBets;
 
-    private BetDaoImpl() {
+    public BetDaoImpl() {
         mBets = new ArrayList<>();
-    }
-
-    public static BetDaoImpl getInstance() {
-        if (ourInstance == null) {
-            ourInstance = new BetDaoImpl();
-        }
-        return ourInstance;
     }
 
     @Override
@@ -28,20 +20,29 @@ public class BetDaoImpl implements BetDao {
     }
 
     @Override
-    public List<Bet> getWinnerBet() {
+    public List<Bet> getWinBet() {
         //TODO Logic
         return null;
     }
 
     @Override
-    public Bet saveToDB(Bet bet) {
+    public List<Bet> getAllBetsForUser(User user) {
+        return null;
+    }
+
+    @Override
+    public void saveToDB(Bet bet) {
         mBets.add(bet);
-        return bet;
     }
 
     @Override
     public boolean removeFromDB(Bet bet) {
         return mBets.remove(bet);
+    }
+
+    @Override
+    public List<Bet> getAll() {
+        return null;
     }
 
     public List<Bet> getBets() {
