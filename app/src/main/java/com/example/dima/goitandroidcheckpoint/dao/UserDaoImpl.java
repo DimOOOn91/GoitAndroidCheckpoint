@@ -40,7 +40,7 @@ public class UserDaoImpl implements UserDao, AbstractDao<User> {
 
     @Override
     public List<User> getAll() {
-        return null;
+        return mUsers;
     }
 
 }

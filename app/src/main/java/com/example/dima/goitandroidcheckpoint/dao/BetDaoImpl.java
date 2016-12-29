@@ -42,10 +42,7 @@ public class BetDaoImpl implements BetDao, AbstractDao<Bet>  {
 
     @Override
     public List<Bet> getAll() {
-        return null;
-    }
-
-    public List<Bet> getBets() {
         return mBets;
     }
+
 }

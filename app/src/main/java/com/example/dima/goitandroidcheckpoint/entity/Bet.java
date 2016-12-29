@@ -5,14 +5,14 @@ public class Bet {
     private static long counter = 0;
 
     private long id;
-    private User user;
+    private String userEmail;
     private int sum;
     private Horse horseNumber;
     private Position horsePosition;
 
-    public Bet(User user, int sum, Horse horseNumber, Position horsePosition) {
+    public Bet(String userEmail, int sum, Horse horseNumber, Position horsePosition) {
         this.id = ++counter;
-        this.user = user;
+        this.userEmail = userEmail;
         this.sum = sum;
         this.horseNumber = horseNumber;
         this.horsePosition = horsePosition;
@@ -26,12 +26,12 @@ public class Bet {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public int getSum() {
@@ -65,8 +65,10 @@ public class Bet {
 
         Bet bet = (Bet) o;
 
+        if (id != bet.id) return false;
         if (sum != bet.sum) return false;
-        if (user != null ? !user.equals(bet.user) : bet.user != null) return false;
+        if (userEmail != null ? !userEmail.equals(bet.userEmail) : bet.userEmail != null)
+            return false;
         if (horseNumber != bet.horseNumber) return false;
         return horsePosition == bet.horsePosition;
 
@@ -74,7 +76,8 @@ public class Bet {
 
     @Override
     public int hashCode() {
-        int result = user != null ? user.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (userEmail != null ? userEmail.hashCode() : 0);
         result = 31 * result + sum;
         result = 31 * result + (horseNumber != null ? horseNumber.hashCode() : 0);
         result = 31 * result + (horsePosition != null ? horsePosition.hashCode() : 0);
@@ -84,10 +87,11 @@ public class Bet {
     @Override
     public String toString() {
         return "Bet{" +
-                "user='" + user + '\'' +
+                "id=" + id +
+                ", userEmail='" + userEmail + '\'' +
                 ", sum=" + sum +
                 ", horseNumber=" + horseNumber +
-                ", horsePosition='" + horsePosition + '\'' +
+                ", horsePosition=" + horsePosition +
                 '}';
     }
 }

@@ -86,12 +86,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mainBet_setBet:
-                User user = mController.getUserByEmail(mSharedPreferences.getCurrentUser());
+                String user = mSharedPreferences.getCurrentUser();
                 Horse horse = (Horse) mHorse.getSelectedItem();
                 Position horsePosition = (Position) mHorsePosition.getSelectedItem();
                 int sum = Integer.valueOf(mBetSum.getText().toString());
                 Bet bet = new Bet(user, sum, horse, horsePosition);
-                mController.saveBet(bet);
+                mController.addBet(bet);
                 mBetAdapter.notifyDataSetChanged();
                 break;
             case R.id.mainBet_beginRace:

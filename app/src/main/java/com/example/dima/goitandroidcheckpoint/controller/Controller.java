@@ -41,7 +41,7 @@ public class Controller {
         return mUserDao.getUserByEmail(email);
     }
 
-    public void saveBet(Bet bet) {
+    public void addBet(Bet bet) {
         mBetDao.saveToDB(bet);
     }
 
