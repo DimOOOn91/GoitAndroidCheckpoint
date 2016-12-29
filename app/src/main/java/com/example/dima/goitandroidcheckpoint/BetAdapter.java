@@ -56,7 +56,7 @@ public class BetAdapter extends BaseAdapter {
         user.setText(bet.getUser());
         sum.setText(String.valueOf(bet.getSum()));
         horse.setText(bet.getHorseNumber().name());
-        position.setText(bet.getHorsePosition());
+        position.setText(bet.getHorsePosition().name());
 
         return rootView;
     }
