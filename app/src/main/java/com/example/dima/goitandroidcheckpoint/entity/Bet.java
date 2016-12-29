@@ -2,23 +2,35 @@ package com.example.dima.goitandroidcheckpoint.entity;
 
 public class Bet {
 
-    private String user;
+    private static long counter = 0;
+
+    private long id;
+    private User user;
     private int sum;
     private Horse horseNumber;
-    private String horsePosition;
+    private Position horsePosition;
 
-    public Bet(String user, int sum, Horse horseNumber, String horsePosition) {
+    public Bet(User user, int sum, Horse horseNumber, Position horsePosition) {
+        this.id = ++counter;
         this.user = user;
         this.sum = sum;
         this.horseNumber = horseNumber;
         this.horsePosition = horsePosition;
     }
 
-    public String getUser() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -38,11 +50,11 @@ public class Bet {
         this.horseNumber = horseNumber;
     }
 
-    public String getHorsePosition() {
+    public Position getHorsePosition() {
         return horsePosition;
     }
 
-    public void setHorsePosition(String horsePosition) {
+    public void setHorsePosition(Position horsePosition) {
         this.horsePosition = horsePosition;
     }
 
@@ -56,7 +68,7 @@ public class Bet {
         if (sum != bet.sum) return false;
         if (user != null ? !user.equals(bet.user) : bet.user != null) return false;
         if (horseNumber != bet.horseNumber) return false;
-        return horsePosition != null ? horsePosition.equals(bet.horsePosition) : bet.horsePosition == null;
+        return horsePosition == bet.horsePosition;
 
     }
 

@@ -25,6 +25,11 @@ public class User {
         this.password = password;
     }
 
+    public boolean isPasswordCorrect(String password) {
+        return this.password.equals(password);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
