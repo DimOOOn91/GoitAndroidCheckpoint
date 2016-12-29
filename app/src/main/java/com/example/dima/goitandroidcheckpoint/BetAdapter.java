@@ -53,8 +53,7 @@ public class BetAdapter extends BaseAdapter {
         Bet bet = mList.get(i);
 
         number.setText(String.valueOf(mList.indexOf(bet) + 1));
-        String email = bet.getUserEmail();
-        user.setText(email);
+        user.setText(bet.getUser().getEmail());
         sum.setText(String.valueOf(bet.getSum()));
         horse.setText(bet.getHorseNumber().name());
         position.setText(bet.getHorsePosition().name());

@@ -5,14 +5,14 @@ public class Bet {
     private static long counter = 0;
 
     private long id;
-    private String userEmail;
+    private User user;
     private int sum;
     private Horse horseNumber;
     private Position horsePosition;
 
-    public Bet(String userEmail, int sum, Horse horseNumber, Position horsePosition) {
+    public Bet(User user, int sum, Horse horseNumber, Position horsePosition) {
         this.id = ++counter;
-        this.userEmail = userEmail;
+        this.user = user;
         this.sum = sum;
         this.horseNumber = horseNumber;
         this.horsePosition = horsePosition;
@@ -26,12 +26,12 @@ public class Bet {
         this.id = id;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getSum() {
@@ -67,8 +67,7 @@ public class Bet {
 
         if (id != bet.id) return false;
         if (sum != bet.sum) return false;
-        if (userEmail != null ? !userEmail.equals(bet.userEmail) : bet.userEmail != null)
-            return false;
+        if (user != null ? !user.equals(bet.user) : bet.user != null) return false;
         if (horseNumber != bet.horseNumber) return false;
         return horsePosition == bet.horsePosition;
 
@@ -77,21 +76,10 @@ public class Bet {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (userEmail != null ? userEmail.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + sum;
         result = 31 * result + (horseNumber != null ? horseNumber.hashCode() : 0);
         result = 31 * result + (horsePosition != null ? horsePosition.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Bet{" +
-                "id=" + id +
-                ", userEmail='" + userEmail + '\'' +
-                ", sum=" + sum +
-                ", horseNumber=" + horseNumber +
-                ", horsePosition=" + horsePosition +
-                '}';
     }
 }

@@ -37,4 +37,8 @@ public class SharedPref {
     public String getCurrentUser() {
         return mSharedPreferences.getString(CURRENT_USER, "");
     }
+
+    public void clear() {
+        mSharedPreferences.edit().clear().apply();
+    }
 }

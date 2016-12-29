@@ -22,12 +22,12 @@ import com.example.dima.goitandroidcheckpoint.util.SharedPref;
 
 /**
  * Вариант№2.
- *
+ * <p>
  * Написать программу для приема ставок и расчета выигрышей на скачках.
  * Пользователи, зарегистрированные в системе, могут поставить любую сумму на одну из семи лошадей.
  * Предварительно администратор системы вносит список лошадей. По результатам заезда
  * (его можно смоделировать на основе случайных чисел) должна рассчитываться сумма выигрыша.
- *
+ * <p>
  * (*) Система должна иметь возможность обрабатывать несколько видов ставок
  * (какая лошадь придет первой, какая лошадь придет последней и т.д.).
  */
@@ -78,15 +78,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainButtonBegin.setOnClickListener(this);
 
 
-
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mainBet_setBet:
-                String user = mSharedPreferences.getCurrentUser();
+                User user = mController.getUserByEmail(mSharedPreferences.getCurrentUser());
                 Horse horse = (Horse) mHorse.getSelectedItem();
                 Position horsePosition = (Position) mHorsePosition.getSelectedItem();
                 int sum = Integer.valueOf(mBetSum.getText().toString());
@@ -112,5 +110,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences.signOut();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mSharedPreferences.clear();
+        super.onDestroy();
     }
 }

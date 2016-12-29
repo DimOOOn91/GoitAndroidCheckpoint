@@ -47,9 +47,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         if (mSharedPreferences.isUserSignIn()) {
-            startActivity(new Intent(this, MainActivity.class));
+            User user = mController.getUserByEmail(mSharedPreferences.getCurrentUser());
+            mEmail.setText(user.getEmail());
+            mPassword.setText(user.getPassword());
+        } else if (!TextUtils.isEmpty(mSharedPreferences.getCurrentUser())) {
+            mEmail.setText(mSharedPreferences.getCurrentUser());
         }
         super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mSharedPreferences.clear();
+        super.onDestroy();
     }
 
     @Override
