@@ -10,15 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dima.goitandroidcheckpoint.controller.Controller;
 import com.example.dima.goitandroidcheckpoint.entity.User;
 import com.example.dima.goitandroidcheckpoint.util.SharedPref;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static List<User> mUsers;
+    private Controller mController;
 
     private EditText mEmail;
     private EditText mPassword;
@@ -33,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setTitle(getString(R.string.log_in));
 
-        mUsers = new ArrayList<>();
+        mController = Controller.getInstance();
         mSharedPreferences = new SharedPref(this);
 
         mEmail = (EditText) findViewById(R.id.loginedit_email);
@@ -81,15 +79,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validForm()) {
             return false;
         }
-        mEmail.setError(null);
-        for (User existingUser : mUsers) {
-            if (email.equals(existingUser.getEmail())) {
-                mEmail.setError(getString(R.string.duplicate_email));
-                return false;
-            }
+        if (mController.userIsPresent(email)) {
+            mEmail.setError(getString(R.string.duplicate_email));
+            return false;
+        } else {
+            mEmail.setError(null);
         }
         User user = new User(email, password);
-        mUsers.add(user);
+        mController.addUser(user);
         mPassword.setText("");
         Toast.makeText(this, "Account is created", Toast.LENGTH_SHORT).show();
         return true;
@@ -127,19 +124,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validForm()) {
             return;
         }
-        User user = new User(email, password);
-        if (!mUsers.contains(user)) {
-            mEmail.setError(getString(R.string.wrong_email_or_password));
-            mPassword.setError(getString(R.string.wrong_email_or_password));
+        if (!mController.userIsPresent(email)) {
+            mEmail.setError(getString(R.string.no_user_with_such_email));
             return;
         } else {
             mEmail.setError(null);
+        }
+
+        User user = mController.getUserByEmail(email);
+
+        if (!user.isPasswordCorrect(password)) {
+            mPassword.setError(getString(R.string.wrong_password));
+            return;
+        } else {
             mPassword.setError(null);
         }
+
         mSharedPreferences.signIn(email);
         mPassword.setText("");
         startActivity(new Intent(this, MainActivity.class));
-        return;
     }
 
 }

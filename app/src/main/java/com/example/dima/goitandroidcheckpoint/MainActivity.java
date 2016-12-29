@@ -13,13 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.dima.goitandroidcheckpoint.controller.Controller;
 import com.example.dima.goitandroidcheckpoint.entity.Bet;
 import com.example.dima.goitandroidcheckpoint.entity.Horse;
-import com.example.dima.goitandroidcheckpoint.entity.Winner;
+import com.example.dima.goitandroidcheckpoint.entity.Position;
+import com.example.dima.goitandroidcheckpoint.entity.User;
 import com.example.dima.goitandroidcheckpoint.util.SharedPref;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Вариант№2.
@@ -35,9 +34,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<String> mPositions;
-    private List<Bet> mBetList;
-    private List<Winner> mWinners;
+    public Controller mController;
 
     private SharedPref mSharedPreferences;
 
@@ -54,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        generateCollections();
+        mController = Controller.getInstance();
         mSharedPreferences = new SharedPref(this);
 
         mBetListView = (ListView) findViewById(R.id.mainBet_listView);
-        mBetAdapter = new BetAdapter(this, mBetList);
+        mBetAdapter = new BetAdapter(this, mController.getAllBet());
         mBetListView.setAdapter(mBetAdapter);
 
         ArrayAdapter<Horse> arrayAdapterHorse = new ArrayAdapter<Horse>(this, android.R.layout.simple_spinner_item, Horse.values());
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mHorse.setAdapter(arrayAdapterHorse);
 
 
-        ArrayAdapter<String> arrayAdapterPosition = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mPositions);
+        ArrayAdapter<Position> arrayAdapterPosition = new ArrayAdapter<Position>(this, android.R.layout.simple_spinner_item, Position.values());
         arrayAdapterPosition.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mHorsePosition = (Spinner) findViewById(R.id.mainBet_horsePosition);
         mHorsePosition.setAdapter(arrayAdapterPosition);
@@ -85,26 +82,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void generateCollections() {
-        mBetList = new ArrayList<>();
-        mWinners = new ArrayList<>();
-        mPositions = new ArrayList<>();
-        mPositions.add("first");
-        mPositions.add("second");
-        mPositions.add("third");
-        mPositions.add("last");
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mainBet_setBet:
-                String user = mSharedPreferences.getCurrentUser();
+                User user = mController.getUserByEmail(mSharedPreferences.getCurrentUser());
                 Horse horse = (Horse) mHorse.getSelectedItem();
-                String horsePosition = mHorsePosition.getSelectedItem().toString();
+                Position horsePosition = (Position) mHorsePosition.getSelectedItem();
                 int sum = Integer.valueOf(mBetSum.getText().toString());
                 Bet bet = new Bet(user, sum, horse, horsePosition);
-                mBetList.add(bet);
+                mController.saveBet(bet);
                 mBetAdapter.notifyDataSetChanged();
                 break;
             case R.id.mainBet_beginRace:
